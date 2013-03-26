@@ -1,0 +1,63 @@
+<style type="text/css">
+p {
+  color: #FFF;
+}
+body p {
+	text-align: center;
+}
+form {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	text-align: center;
+	color: #FFF;
+}
+table {text-align:left; }
+</style>
+<HEAD>
+
+
+</HEAD>
+
+<p>
+<body bgcolor="#49494a">
+
+
+<img src="logo.jpg" alt="KCIS" align="absmiddle"/>
+
+<form action="trans_payment.php" method="post">
+<center>
+<TABLE BORDER=0>
+            <TR>	<TD>Transaction Date </TD><TD> <input type="text" name="trans_date"> </TD> </TR>
+            <TR>	<TD>Transaction Name</TD><TD> <input type="text"  name="trans_name" ></TD> </TR>
+			<TR>	<TD>Payment Type </TD>
+				<TD>
+                        <select name ="pymt">
+                        <option value="to_usa"> Payment to USA</option>
+                        <option value="to_irr"> Payment to Iran</option>
+                        </select> 
+						</TD>
+             </TR> 
+ 			<TR>	<TD>Amount</TD><TD> <input type="text"  name="amt" > </TD><TD>USD</TD></TR>
+			<TR>	<TD>Conversion Rate</TD><TD> <input type="text"  name="sponsor" > </TD> </TR>
+			<TR>	<TD>Result</TD><TD> <input type="text"  name="amt" >  </textarea> </TD><TD>Toman</TD></TR>
+			<TR>	<TD>Remarks </TD><TD> <textarea  name="remarks"></textarea> </TD> </TR>
+			        
+</TABLE>
+</center>
+
+<input type="submit" name="save" value="Save">
+<input type="submit" name="cancel" value="Cancel">
+
+</p>
+ 
+</form>
+
+ 
+ <?php
+ if(isset($_GET['flag'])){
+ 	echo "Your Username or Password is incorrect!"; 
+ } 
+ ?>
+
+</body>
+
