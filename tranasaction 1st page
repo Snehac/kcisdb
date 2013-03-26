@@ -1,0 +1,37 @@
+<style type="text/css">
+p {
+  color: #FFF;
+}
+body p {
+	text-align: center;
+}
+form {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	text-align: center;
+	color: #FFF;
+}
+table {text-align:left; }
+</style>
+<p>
+<body bgcolor="#49494a">
+
+
+<img src="logo.png" alt="KCIS" align="absmiddle"/>
+
+<form action="school.php" method="post">
+<center>
+<TABLE BORDER=0>
+            <TR> <TD><input type="submit" name="add" value="Add New Contribution Record "></TD></TR>            
+            <TR><TD><input type="submit" name="edit" value="Edit/View Contribution Information    "></TD></TR>
+            <TR><TD><input type="submit" name="add" value="Add New Payment Record "></TD></TR>
+			<TR><TD><input type="submit" name="edit" value="Edit/View Payment Information "></TD></TR>
+</table>
+</center>
+
+</p>
+ 
+</form>
+
+ </body>
+
