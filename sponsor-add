@@ -1,0 +1,130 @@
+<style type="text/css">
+p {
+  color: #FFF;
+}
+body p {
+	text-align: center;
+}
+form {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	text-align: center;
+	color: #FFF;
+}
+table {text-align:left; }
+</style>
+<HEAD>
+<title>sponsor add</title>
+<script type="text/javascript">
+function doit()
+{ 
+	var home_phone = document.myform.home_ph.value;
+	var cell_phone = document.myform.cell_ph.value;
+	var work_phone = document.myform.work_ph.value;
+	
+	if (isNaN(home_phone) || isNaN(cell_phone) || isNaN(work_phone))
+	{
+		alert ("please enter numeric value");
+		return false;
+	
+	}
+	
+	
+						//just check for first/last name 
+	if (document.myform.first_nm_eng.value == "" && document.myform.first_nm_far.value == "") 
+	{ 
+		alert("Please fill out first name field"); 
+		
+		return false;
+	}
+	else if (document.myform.last_nm_eng.value == "" && document.myform.last_nm_far.value == "")
+	{ 
+		alert("Please fill out last name field"); 
+		
+		return false;
+	}
+	else if (document.myform.addr.value == "")
+	{ 
+		alert("Please fill out address field"); 
+		
+		return false;
+	}
+	else if (document.myform.home_ph.value == "" && document.myform.cell_ph.value == "" && document.myform.work_ph.value == "")
+	{ 
+		alert("Please fill out atleast one phone number "); 
+		
+		return false;
+	}
+	else if (document.myform.email.value == "")
+	{ 
+		alert("Please enter email id "); 
+		
+		return false;
+	}
+	
+		else if(document.getElementById("save"))
+		{
+            alert("Datebase updated!");
+            return true;
+		}
+      else 
+            return false;
+	
+
+}</script>
+
+</HEAD>
+
+<p>
+<body bgcolor="#49494a">
+
+
+<img src="logo.jpg" alt="KCIS" align="absmiddle"/>
+
+<form name= "myform" action="sponsor_ins.php" method="post" onSubmit="return(doit())">
+<center>
+<TABLE BORDER=0>
+            <TR>	<TD>First Name (ENG) </TD><TD> <input type="text" name="first_nm_eng"> </TD> </TR>
+            <TR>	<TD>Last Name (ENG)</TD><TD> <input type="text"  name="last_nm_eng" >  </textarea> </TD> </TR>
+			<TR>	<TD>First Name (FAR) </TD><TD> <input type="text" name="first_nm_far"> </TD> </TR>
+			<TR>	<TD>Last Name (FAR)</TD><TD> <input type="text"  name="last_nm_far" >  </textarea> </TD> </TR>
+
+			<TR>	<TD>Address </TD><TD> <textarea  name="addr" >  </textarea> </TD> </TR>
+			<TR>	<TD>Home Phone </TD><TD><input type="text" name="home_ph"> </TD> </TR>
+			<TR>	<TD>Cell Phone </TD><TD><input type="text" name="cell_ph"> </TD> </TR>
+			<TR>	<TD>Work Phone </TD><TD><input type="text" name="work_ph"> </TD> </TR>
+
+			<TR>	<TD>Email </TD><TD><input type="email" name="email"> </TD> </TR>
+			<TR>	<TD>Active</TD><TD>
+                        <select name ="status">
+                        <option value="Active"> Active</option>
+                        <option value="Inactive"> Inactive</option>
+                        <option value="other"> Other</option>
+                        </select> </TD>
+             </TR>
+
+			<TR>	<TD>Remarks </TD><TD> <textarea  name="remark" >  </textarea> </TD> </TR>
+           
+</TABLE>
+</center>
+
+<input type="submit" id="save" name="save" value="Save">
+</form>
+</p>
+<form action="sponsor_add.php">
+
+<input type="submit" name="cancel" value="Cancel">
+</form>
+
+ 
+
+
+ 
+ <?php
+ if(isset($_GET['flag'])){
+ 	echo "Your Username or Password is incorrect!"; 
+ } 
+ ?>
+
+</body>
+
