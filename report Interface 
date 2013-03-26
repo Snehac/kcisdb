@@ -1,0 +1,33 @@
+<style type="text/css">
+p {
+  color: #000;
+}
+body p {
+	text-align: center;
+}
+table {text-align:right;}
+body{background-image:url('abc_4.jpg');
+form {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 20px;
+	text-align: left;
+	color: #000
+}
+</style>
+
+<body bgcolor="#73B500"><B>
+<center>
+<img src="logo.png" alt="KCIS" align="center"/>
+<form method="post" action="repo.php?">
+	  <TABLE BORDER=0 > 
+			  <tr><td >   <input value="school" type="radio" name="group1"></td> <td align = "left"> List of Students   </td></tr>
+			   <tr><td >  <input value="student" type="radio" name="group1"></td> <td align = "left"> List of Sponsors </td></tr>
+			   <tr><td >  <input value="sponsor" type="radio" name="group1"></td> <td align = "left">  Matching Students/ Sponsor  </td></tr>
+			   <tr><td >  <input value="transaction" type="radio" name="group1"></td> <td align = "left">  Class Levels Summary </td></tr>
+			   <tr><td >  <input value="report" type="radio" name="group1"> </td> <td align = "left"> Contribution Summary </td></tr>
+			   <tr><td >   <input value="school" type="radio" name="group1"></td> <td align = "left"> Expenses Summary  </td></tr>
+			   <tr><td >  <input value="student" type="radio" name="group1"></td> <td align = "left">  Outstanding Sponsor's Contribution </td></tr>
+	</TABLE>
+</form><input type="submit" value="Submit">  
+</center>
+</body>
