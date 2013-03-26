@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>School View/Edit</title>
+</head>
+
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript" language="javascript">
+  function doit()
+	{	 
+		var row_id;
+		var inp_arr = document.getElementsByTagName("input");
+		for(i=0;i<inp_arr.length;i++)
+		{
+			if(inp_arr[i].type=="radio")
+			{
+				if(inp_arr[i].checked==true)
+				{
+					row_id=inp_arr[i].id;
+				}
+			}
+		}
+		
+		for(i=0;i<inp_arr.length;i++)
+		{
+			if(inp_arr[i].type=="text")
+			{
+				if(inp_arr[i].name=="school_tb_"+row_id || inp_arr[i].name=="phone_tb_"+row_id || inp_arr[i].name=="level_tb_"+row_id)
+				{
+					if(inp_arr[i].value=='')
+					{
+						alert("Please fill all the values in the selected row");
+						return false;
+					}
+					if(inp_arr[i].name=="phone_tb_"+row_id)
+					{
+						if(isNaN(inp_arr[i].value)){alert("Phone number is not acceptable, Enter only numeric value");return false;}
+					}
+				}
+			}
+		}
+		
+		var txtarea_arr=document.getElementsByTagName("textarea");
+		for(i=0;i<txtarea_arr.length;i++)
+		{
+			if(txtarea_arr[i].name=="address_tb_"+row_id)
+			{
+				if(txtarea_arr[i].textLength==0)
+				{
+					alert("Please fill all the values in the selected row");
+					return false;
+				}
+			}
+		}
+	} 
+</script>
+
+
+<body>
+	<?php
+	$con=mysqli_connect("localhost","root","","kcis_db");
+	// Check connection
+	if (mysqli_connect_errno())
+	  {
+	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+
+
+	$result = mysqli_query($con,"SELECT * FROM schools");
+    echo "<form action='school_decide.php' method='post' onSubmit='return doit()'>";
+        echo "<center><table border='1'>";
+   
+        echo 
+        "<th>
+            
+            <td>School Name</td>
+            <td>Address</td>
+            <td>Phone Number</td>
+            <td>Level</td>
+        </th>";
+
+        while( ($row = mysqli_fetch_array($result)))
+    {
+    	
+        echo "<tr>";
+
+        echo "<td><input id=".$row['ID']." type='radio' value=".$row['ID']." name='row' onClick='onClick_viewedit(".$row['ID'].")'></input></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='school_tb_".$row['ID']."' id='school_tb_".$row['ID']."' value=".$row['SCHOOL_NAME']."></td>";
+        echo "<td><textarea disabled='true' style='border: none' name='address_tb_".$row['ID']."' id='address_tb_".$row['ID']."'>".$row['ADDRESS']."</textarea></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='phone_tb_".$row['ID']."' id='phone_tb_".$row['ID']."' value=".$row['PHONE']."></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='level_tb_".$row['ID']."' id='level_tb_".$row['ID']."' value=".$row['LEVEL']."></td>";
+        echo "</tr>";
+        
+        
+    }
+    
+        echo "</table>";
+        echo "<input type='submit' name='submit' value='Save'>";
+        echo "<input type='submit' name='submit' value='Delete'>";
+        echo "</center></form>";
+       
+    
+	mysqli_close($con);
+	?>
+</body>
+</html>
