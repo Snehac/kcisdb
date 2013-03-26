@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sponsor View/Edit</title>
+<script type="text/javascript" src="lib3.js"></script>
+<script type="text/javascript" language="javascript">
+  function doit()
+	{	 
+		var row_id;
+		var inp_arr = document.getElementsByTagName("input");
+		for(i=0;i<inp_arr.length;i++)
+		{
+			if(inp_arr[i].type=="radio")
+			{
+				if(inp_arr[i].checked==true)
+				{
+					row_id=inp_arr[i].id;
+				}
+			}
+		}
+		
+		var isphone=0;
+		var isfirstname=0;
+		var islastname=0;
+		
+		for(i=0;i<inp_arr.length;i++)
+		{
+			if(inp_arr[i].type=="text")
+			{
+				if(inp_arr[i].name=="first_name_eng"+row_id || inp_arr[i].name=="first_name_far"+row_id)
+				{
+					if(inp_arr[i].value!=""){isfirstname=1;}
+				}
+				if(inp_arr[i].name=="last_name_eng"+row_id || inp_arr[i].name=="last_name_far"+row_id)
+				{
+					if(inp_arr[i].value!=""){islastname=1;}
+				}
+				if(inp_arr[i].name=="home_phone"+row_id || inp_arr[i].name=="work_phone"+row_id || inp_arr[i].name=="cell_phone"+row_id)
+				{
+					if(inp_arr[i].value!="")
+					{
+						if(isNaN(inp_arr[i].value))
+						{
+							alert("Phone number is not acceptable, Enter only numeric value");
+							return false;	
+						}
+						isphone=1;
+					}
+				}
+				if(inp_arr[i].name=="email"+row_id)
+				{
+					if(inp_arr[i].value=='')
+					{
+						alert("Please fill all the values in the selected row");
+						return false;
+					}
+				}
+			}
+		}
+		
+		if(isfirstname==0 || islastname==0 || isphone==0)
+		{
+			alert("Please fill all the values in the selected row");
+			return false;	
+		}
+		
+		var txtarea_arr=document.getElementsByTagName("textarea");
+		for(i=0;i<txtarea_arr.length;i++)
+		{
+			if(txtarea_arr[i].name=="address"+row_id)
+			{
+				if(txtarea_arr[i].textLength==0)
+				{
+					alert("Please fill all the values in the selected row");
+					return false;
+				}
+			}
+		}
+	} 
+
+
+</script>
+
+</head>
+
+<body>
+	<?php
+	$con=mysqli_connect("localhost","root","","kcis_db");
+	// Check connection
+	if (mysqli_connect_errno())
+	  {
+	  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+	}
+
+
+	$result = mysqli_query($con,"SELECT * FROM sponsors ORDER BY 'Status' desc");
+
+
+    echo "<form action='sponsor_decide.php'  method='post' onSubmit='return doit()'>";
+    echo "<center><table border='1'>";
+   
+        echo 
+        "<th>
+            
+            <td>First Name(Eng)</td>
+            <td>Last Name(Eng)</td>
+            <td>First Name(Far)</td>
+            <td>Last Name(Far)</td>
+			<td>Address</td>
+			<td>Home Phone</td>
+			<td>Cell Phone</td>
+			<td>Work Phone</td>
+			<td>Email</td>
+			<td>Status</td>
+			<td>Remarks</td>
+			
+        </th>";
+        while( ($row = mysqli_fetch_array($result)))
+    {
+    	echo "<tr>";
+        echo "<td><input id=".$row['ID']." type='radio' value=".$row['ID']." name='row' onClick='onClick_viewedit(".$row['ID'].")'></input></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='first_name_eng".$row['ID']."' id='first_name_eng".$row['ID']."' value=".$row['FIRST_NAME_ENG']." ></td>";
+        //echo "<td><input type='text' readonly='readonly' style='border: none' name='address_tb_".$row['ID']."' id='address_tb_".$row['ID']."' value=".$row['ADDRESS']." ></td>";
+		echo "<td><input type='text' readonly='readonly' style='border: none' name='last_name_eng".$row['ID']."' id='last_name_eng".$row['ID']."' value=".$row['LAST_NAME_ENG']." ></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='first_name_far".$row['ID']."' id='first_name_far".$row['ID']."' value=".$row['FIRST_NAME_FAR']." ></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='last_name_far".$row['ID']."' id='last_name_far".$row['ID']."' value=".$row['LAST_NAME_FAR']." ></td>";
+        echo "<td><textarea disabled='true' style='border: none' name='address".$row['ID']."' id='address".$row['ID']."'>".$row['ADDRESS']."</textarea></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='home_phone".$row['ID']."' id='home_phone".$row['ID']."' value=".$row['HOME_PHONE']." ></td>";
+		echo "<td><input type='text' readonly='readonly' style='border: none' name='cell_phone".$row['ID']."' id='cell_phone".$row['ID']."' value=".$row['CELL_PHONE']." ></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='work_phone".$row['ID']."' id='work_phone".$row['ID']."' value=".$row['WORK_PHONE']." ></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='email".$row['ID']."' id='email".$row['ID']."' value=".$row['EMAIL']." ></td>";
+        echo "<td><input type='text' readonly='readonly' style='border: none' name='is_active".$row['ID']."' id='is_active".$row['ID']."' value=".$row['IS_ACTIVE']."></td>";
+		echo "<td><textarea disabled='true' style='border: none' name='remarks".$row['ID']."' id='remarks".$row['ID']."' >".$row['REMARKS']."</textarea></td>";
+		
+		
+		echo "</tr>";
+    }
+    echo "</table>";
+    echo "<input type='submit' name='submit' value='Save'>";
+    echo "<input type='submit' name='submit' value='Delete'>";
+    echo "</center></form>";
+
+	mysqli_close($con);
+	?>
+</body>
+</html>
